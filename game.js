@@ -1,13 +1,33 @@
 class mainScene {
     preload() {
-        fetch('https://api.openweathermap.org/data/2.5/weather?q=Cincinnati&appid=86b3ece53e58debf043613f6fc7f7cca')
-        .then(response => response.json())
-        .then(data => console.log(data))
 
-        .catch(err => alert("Open Weather API Not Working"))
     }
 
     create() {
+
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=Cincinnati&appid=86b3ece53e58debf043613f6fc7f7cca')
+        .then(response => response.json())
+        .then(data => {
+            let weather = data['weather'][0]['main']
+
+            if (weather == 'Clouds') {
+                
+            } else if (weather == 'Thunderstorm') {
+
+            } else if (weather == 'Drizzle') {
+
+            } else if (weather == 'Rain') {
+
+            } else if (weather == 'Snow') {
+
+            } else if (weather == 'Clear') {
+
+            } else {
+                
+            }
+        })
+
+        .catch(err => alert("Open Weather API Not Working"))
 
         this.score = 0;
         let style = {
