@@ -8,22 +8,23 @@ class mainScene {
         fetch('https://api.openweathermap.org/data/2.5/weather?q=Cincinnati&appid=86b3ece53e58debf043613f6fc7f7cca')
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             let weather = data['weather'][0]['main']
 
             if (weather == 'Clouds') {
-                
+                alert("According to Open Weather API, it is cloudy outside")
             } else if (weather == 'Thunderstorm') {
-
+                alert("According to Open Weather API, there is a thunderstorm outside")
             } else if (weather == 'Drizzle') {
-
+                alert("According to Open Weather API, there is a drizzle outside")
             } else if (weather == 'Rain') {
-
+                alert("According to Open Weather API, it is raining outside")
             } else if (weather == 'Snow') {
-
+                alert("According to Open Weather API, it is snowing outside")
             } else if (weather == 'Clear') {
-
+                alert("According to Open Weather API, it is a clear sky")
             } else {
-                
+
             }
         })
 
@@ -52,6 +53,7 @@ class mainScene {
         } else if (this.arrow.up.isDown) {
             this.player.y -= 3;
         }
+
     }
 
     hit() {
