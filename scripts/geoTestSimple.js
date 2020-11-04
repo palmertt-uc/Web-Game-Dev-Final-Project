@@ -53,15 +53,15 @@ try {
       }
       
       if (plusMinus3>0.5){
-        latP2 = lat+deltaPoint1;
+        latP2 = lat+deltaPoint2;
       }else{
-        latP2 = lat-deltaPoint1;
+        latP2 = lat-deltaPoint2;
       }
       
       if (plusMinus4>0.5){
-        lonP2 = lon+deltaPoint1;
+        lonP2 = lon+deltaPoint2;
       }else{
-        lonP2 = lon-deltaPoint1;
+        lonP2 = lon-deltaPoint2;
       }
 
       
