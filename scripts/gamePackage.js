@@ -24,6 +24,7 @@ class mainScene {
     //this.player = this.physics.add.sprite(100, 100, 'player');
     //this.coin = this.physics.add.sprite(300, 300, 'coin');
     this.package = this.physics.add.sprite(300, 300, 'package');
+    this.package.setCollideWorldBounds(true);
     // Store the score in a variable, initialized at 0
     this.score = 0;
     this.arrow = this.input.keyboard.createCursorKeys();
