@@ -11,6 +11,7 @@ class mainScene {
     this.load.image('player', 'assets/sprites/player.png');
     this.load.image('coin', 'assets/sprites/coin.png');
     this.load.image('package', 'assets/sprites/package.png');
+    this.load.image('cincinnati', 'assets/images/Cincinnati.png');
 
     this.load.spritesheet("drone","assets/sprites/DroneAnimated.png",{
       frameWidth:32,
@@ -18,6 +19,34 @@ class mainScene {
     });
   }
   create() {
+    // Sets the background image to one of Cincinnati
+    this.background = this.add.tileSprite(0, 0, 1400, 600, "cincinnati");
+    this.background.setOrigin(0, 0);
+    // Gets the weather type
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=Cincinnati&appid=86b3ece53e58debf043613f6fc7f7cca')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            let weather = data['weather'][0]['main']
+
+            if (weather == 'Clouds') {
+                alert("According to Open Weather API, it is cloudy outside")
+            } else if (weather == 'Thunderstorm') {
+                alert("According to Open Weather API, there is a thunderstorm outside")
+            } else if (weather == 'Drizzle') {
+                alert("According to Open Weather API, there is a drizzle outside")
+            } else if (weather == 'Rain') {
+                alert("According to Open Weather API, it is raining outside")
+            } else if (weather == 'Snow') {
+                alert("According to Open Weather API, it is snowing outside")
+            } else if (weather == 'Clear') {
+                alert("According to Open Weather API, it is a clear sky")
+            } else {
+                return "Not Available"
+            }
+        })
+
+        .catch(err => alert("Open Weather API Not Working"))
     // This method is called once, just after preload()
     // It will initialize our scene, like the positions of the sprites
     // Parameters: x position, y position, name of the sprite
@@ -31,7 +60,7 @@ class mainScene {
     this.scaleMult = 2;
     // The style of the text 
     // A lot of options are available, these are the most important ones
-    let style = { font: '20px Arial', fill: '#fff' };
+    let style = { font: '30px Arial', fill: 'black' };
 
     // Display the score in the top left corner
     // Parameters: x position, y position, text, style

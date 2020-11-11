@@ -10,6 +10,23 @@
 <body>
   <h1>Phaser Module 2 Tutorial</h1>
   <h2>Use the arrow keys to move around use space to pickup packages.</h2>
+  <a href="" id="full-screen">Go Fullscreen!</a>
   <div id="game"></div>
 </body>
+<script>
+  let game = document.getElementById('game');
+  let fullScreen = document.getElementById('full-screen');
+
+  fullScreen.addEventListener('click', function() {
+    if (game.requestFullscreen) {
+      game.requestFullscreen()
+    } else if (game.webkitRequestFullscreen) {
+      game.webkitRequestFullscreen()
+    } else if (game.mozRequestFullScreen) {
+      game.mozRequestFullScreen()
+    } else if (game.msRequestFullscreen) {
+      game.msRequestFullscreen()
+    }
+  })
+</script>
 </html>
