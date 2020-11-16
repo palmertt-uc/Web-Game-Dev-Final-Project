@@ -72,7 +72,7 @@ class mainScene {
       frameRate: 20,
       repeat: -1
     });
-    this.player = this.physics.add.sprite(100,100,"drone");
+    this.player = this.physics.add.sprite(350,100,"drone");
     this.player.play("drone_anim");
     this.player.setScale(this.scaleMult);
     this.player.setCollideWorldBounds(true);
@@ -81,6 +81,7 @@ class mainScene {
     this.holdInput = false;
     this.transitionTime = 200;
   }
+
   update() {
     let speed = 3*this.scaleMult;
     // This method is called 60 times per second after create() 
@@ -137,7 +138,6 @@ class mainScene {
     //console.log(this.holding);
   } //End of update
 
-
   async hit() {
     
     if(this.holding){
@@ -173,7 +173,6 @@ class mainScene {
       yoyo: false, // Turned off because it was not working
     });
   }
-
 
   movePackage(speed){
     if (this.arrow.right.isDown) {
@@ -236,5 +235,3 @@ new Phaser.Game({
   physics: { default: 'arcade' }, // The physics engine to use
   parent: 'game', // Create the game inside the <div id="game"> 
 });
-
-
