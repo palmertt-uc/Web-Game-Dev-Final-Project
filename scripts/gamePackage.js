@@ -8,8 +8,6 @@ class mainScene {
     // This method is called once at the beginning
     // It will load all the assets, like sprites and sounds  
     // Parameters: name of the sprite, path of the image
-    this.load.image('player', 'assets/sprites/player.png');
-    this.load.image('coin', 'assets/sprites/coin.png');
     this.load.image('package', 'assets/sprites/package.png');
     this.load.image('cincinnati', 'assets/images/Cincinnati.png');
     this.load.image('house', 'assets/sprites/House.png');
