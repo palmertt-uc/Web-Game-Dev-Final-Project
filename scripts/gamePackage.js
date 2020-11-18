@@ -8,8 +8,6 @@ class mainScene {
     // This method is called once at the beginning
     // It will load all the assets, like sprites and sounds  
     // Parameters: name of the sprite, path of the image
-    this.load.image('player', 'assets/sprites/player.png');
-    this.load.image('coin', 'assets/sprites/coin.png');
     this.load.image('package', 'assets/sprites/package.png');
     this.load.image('cincinnati', 'assets/images/Cincinnati.png');
 
@@ -80,6 +78,7 @@ class mainScene {
     this.setDown = false;
     this.holdInput = false;
     this.transitionTime = 200;
+    this.sec =30;
   }
 
   update() {
@@ -136,6 +135,14 @@ class mainScene {
       this.movePackage(speed);
     }
     //console.log(this.holding);
+    
+    var timer = setInterval(function(){
+        document.getElementById('TimerDisplay').innerHTML='00:'+this.sec;
+        this.sec--;
+        if (sec < 0) {
+            clearInterval(timer);
+        }
+    }, 1000);
   } //End of update
 
   async hit() {
