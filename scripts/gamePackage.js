@@ -12,6 +12,8 @@ class mainScene {
     this.load.image('coin', 'assets/sprites/coin.png');
     this.load.image('package', 'assets/sprites/package.png');
     this.load.image('cincinnati', 'assets/images/Cincinnati.png');
+    this.load.image('house', 'assets/sprites/House.png');
+    this.load.image('warehouse', 'assets/sprites/Warehouse.png');
 
     this.load.spritesheet("drone","assets/sprites/DroneAnimated.png",{
       frameWidth:32,
@@ -47,12 +49,16 @@ class mainScene {
         })
 
         .catch(err => alert("Open Weather API Not Working"))
+
+    // Spawns the warehouse and house initial location
+    this.warehouse = this.physics.add.sprite(400, 500, "warehouse");
+    this.house = this.physics.add.sprite(1000, 200, "house")
     // This method is called once, just after preload()
     // It will initialize our scene, like the positions of the sprites
     // Parameters: x position, y position, name of the sprite
     //this.player = this.physics.add.sprite(100, 100, 'player');
     //this.coin = this.physics.add.sprite(300, 300, 'coin');
-    this.package = this.physics.add.sprite(300, 300, 'package');
+    this.package = this.physics.add.sprite(405, 500, 'package');
     this.package.setCollideWorldBounds(true);
     // Store the score in a variable, initialized at 0
     this.score = 0;
@@ -136,7 +142,22 @@ class mainScene {
       this.movePackage(speed);
     }
     //console.log(this.holding);
+    if (this.setDown && this.physics.overlap(this.house, this.package)) {
+      this.randomizeLocations()
+      // Increment the score by 10
+      this.score += 10;
+      // Display the updated score on the screen
+      this.scoreText.setText('score: ' + this.score);
+    }
   } //End of update
+
+  // Randomizes the location of the house and resets the package spawn point
+  randomizeLocations() {
+    this.house.x = Phaser.Math.Between(100, 1200);
+    this.house.y = Phaser.Math.Between(100, 500);
+    this.package.x = 405;
+    this.package.y = 500;
+  }
 
   async hit() {
     
@@ -149,12 +170,7 @@ class mainScene {
       this.descendAscend();
       await new Promise(r => setTimeout(r, this.transitionTime));
       this.pickUpPackage();
-
     }
-    // Increment the score by 10
-    this.score += 10;
-    // Display the updated score on the screen
-    this.scoreText.setText('score: ' + this.score);
   }
   async descendAscend(){
     this.tweens.add({
