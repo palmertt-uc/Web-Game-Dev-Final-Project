@@ -4,20 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/phaser@3.14.0/dist/phaser.min.js"></script>
-  <script src= "scripts/gamePackage.js"></script>
+  <script src= "scripts/mainScene.js"></script>
+  <script src= "scripts/startScreenScene.js"></script>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <title>Phaser Module 2</title>
 </head>
-<body>
-  <h1 class="mt-2 ml-2">Drone Delivery</h1>
-  <button onclick="activateFullscreen(document.documentElement)" class="btn btn-primary mt-2 ml-2">Go Fullscreen!</button>
-  <button onclick="exitFullscreen(document.documentElement)" class="btn btn-primary mt-2 ml-2">Exit</button>
+
+
+<body class="container">
+  <h1 class="mt-2 ml-2 container">Drone Delivery</h1>
+  <div class="container">
+    <button onclick="activateFullscreen(document.documentElement)" class="btn btn-primary mt-2 ml-2">Go Fullscreen!</button>
+    <button onclick="exitFullscreen(document.documentElement)" class="btn btn-primary mt-2 ml-2">Exit</button>
+    <button class="btn btn-primary mt-2 ml-2" id="startGameButton" onclick="document.location.reload(true)">Restart Game!</button>
+  </div>
   <div id="Timer">
     <h2>Timer</h2>
     <p id="TimerDisplay">00:30</p>
     </div>
   <div id="game" class="mt-2"></div>
 </body>
+
+
 <script>
   function activateFullscreen(element) {
     if(element.requestFullscreen) {
@@ -44,6 +53,7 @@
     }
   };
 </script>
+<script src= "scripts/gamePackage.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

@@ -101,20 +101,20 @@ try {
     
 
     
-      let pointGraphic = new Graphic({
-        geometry: point,
-        symbol: simpleMarkerSymbol
-      });
-      let pointGraphic2 = new Graphic({
-        geometry: point2,
-        symbol: simpleMarkerSymbol2
-      });
+      // let pointGraphic = new Graphic({
+      //   geometry: point,
+      //   symbol: simpleMarkerSymbol
+      // });
+      // let pointGraphic2 = new Graphic({
+      //   geometry: point2,
+      //   symbol: simpleMarkerSymbol2
+      // });
     
 
     
-      graphicsLayer.add(pointGraphic);
-      graphicsLayer.add(pointGraphic2);
-      console.log(view);
+      // graphicsLayer.add(pointGraphic);
+      // graphicsLayer.add(pointGraphic2);
+      // console.log(view);
     });
 
 
