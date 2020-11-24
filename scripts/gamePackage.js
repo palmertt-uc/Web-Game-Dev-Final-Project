@@ -31,16 +31,28 @@ class mainScene {
 
             if (weather == 'Clouds') {
                 alert("According to Open Weather API, it is cloudy outside")
+                document.getElementById("weatherImage").setAttribute('src', '/assets/images/cloudy.png' );
+                document.getElementById("weatherText").innerHTML = "It is currently cloudy"
             } else if (weather == 'Thunderstorm') {
                 alert("According to Open Weather API, there is a thunderstorm outside")
+                document.getElementById("weatherImage").setAttribute('src', '/assets/images/thunder.png' );
+                document.getElementById("weatherText").innerHTML = "It is currently thundering"
             } else if (weather == 'Drizzle') {
                 alert("According to Open Weather API, there is a drizzle outside")
+                document.getElementById("weatherImage").setAttribute('src', '/assets/images/rain.png' );
+                document.getElementById("weatherText").innerHTML = "It is currently raining"
             } else if (weather == 'Rain') {
                 alert("According to Open Weather API, it is raining outside")
+                document.getElementById("weatherImage").setAttribute('src', '/assets/images/rain.png' );
+                document.getElementById("weatherText").innerHTML = "It is currently raining"
             } else if (weather == 'Snow') {
                 alert("According to Open Weather API, it is snowing outside")
+                document.getElementById("weatherImage").setAttribute('src', '/assets/images/snow.png' );
+                document.getElementById("weatherText").innerHTML = "It is currently snowing"
             } else if (weather == 'Clear') {
                 alert("According to Open Weather API, it is a clear sky")
+                document.getElementById("weatherImage").setAttribute('src', '/assets/images/sunny.png' );
+                document.getElementById("weatherText").innerHTML = "It is a clear day"
             } else {
                 return "Not Available"
             }
