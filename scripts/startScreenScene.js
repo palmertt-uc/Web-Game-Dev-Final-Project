@@ -3,8 +3,12 @@ class startScreenScene extends Phaser.Scene {
   constructor(){
     super("startScreen");
   }
+  preload(){
+    this.load.image('titleScreen', 'assets/images/TitleScreen_Mid.jpg');
+  }
   create(){
-    
+    this.background = this.add.image(500, 290, "titleScreen");
+    // this.background = this.add.tileSprite(0, 0, 1000, 600, "titleScreen");
     this.add.text(20,20, "Select Level");
     this.add.text(20,40, "Press 1 for Cincinnati");
     this.add.text(20,60, "Press 2 for Chicago");
