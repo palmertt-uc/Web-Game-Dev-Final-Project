@@ -184,8 +184,14 @@ class mainScene extends Phaser.Scene {
 
   // Randomizes the location of the house and resets the package spawn point
   randomizeLocations() {
-    this.house.x = Phaser.Math.Between(100, 1000);
-    this.house.y = Phaser.Math.Between(100, 500);
+    this.time.addEvent({
+      delay: 500,
+      callback: ()=>{
+        this.house.x = Phaser.Math.Between(100, 1000);
+        this.house.y = Phaser.Math.Between(100, 500);      
+      },
+      loop: false
+  })
     this.package.x = 405;
     this.package.y = 500;
   }
