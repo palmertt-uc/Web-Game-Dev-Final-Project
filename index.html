@@ -21,10 +21,9 @@
   </div>
 
 
-  <div id="Timer">
-    <h2>Timer</h2>
-    <p id="TimerDisplay">00:30</p>
-    </div>
+  <div>
+    <h2 id="count"></h2>
+  </div>
 
   <div id="game" class="mt-2"></div>
 
@@ -61,6 +60,17 @@
       document.webkitExitFullscreen();
     }
   };
+
+  let counter = 160;
+
+  setInterval( function() {
+    counter--;
+
+    if (counter >= 0) {
+        countID = document.getElementById('count')
+        countID.innerHTML = counter;
+    }
+  }, 1000)
 </script>
 <script src= "scripts/gamePackage.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
