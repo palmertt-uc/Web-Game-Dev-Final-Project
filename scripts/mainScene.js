@@ -21,13 +21,18 @@ class mainScene extends Phaser.Scene {
       frameWidth:32,
       frameHeight:32
     });
+
+    this.load.spritesheet("bird","assets/sprites/BirdSprite.png",{
+      frameWidth:32,
+      frameHeight:32
+    });
   }
   create() {
     this.counter = 30;
     this.deltaTimer = 0;
     this.gameOver = false;
 
-    this.startTime = this.getTime();
+    this.startTime = this.getTime(); 
 
     let instructionID = document.getElementById('instructions');
     instructionID.innerHTML = "Move using the arrow keys. Pick up/Drop off packages with Space bar!";
@@ -108,6 +113,9 @@ class mainScene extends Phaser.Scene {
     // A lot of options are available, these are the most important ones
     let style = { font: '30px Arial', fill: 'black' };
 
+     // bird spawn timer
+     setInterval(this.spawnBird,500)
+
     // Display the score in the top left corner
     // Parameters: x position, y position, text, style
     this.scoreText = this.add.text(20, 20, 'score: ' + this.score, style);
@@ -118,6 +126,14 @@ class mainScene extends Phaser.Scene {
       frameRate: 20,
       repeat: -1
     });
+
+    this.anims.create({
+      key: "bird_anim",
+      frames: this.anims.generateFrameNumbers("bird"),
+      frameRate: 20,
+      repeat: -1
+    });
+
     this.player = this.physics.add.sprite(350,100,"drone");
     this.player.play("drone_anim");
     this.player.setScale(this.scaleMult);
@@ -335,4 +351,25 @@ showDelta() {
     this.startTime = this.getTime();
     return elapsed;
 }
+
+spawnBird(){
+
+  // pick an edge to spawn on 1 is top, 2 is right etc
+  var direction =  Phaser.Math.Between(1, 4);
+  // spawn across the top
+  if(direction == 1){
+    console.log("spawned bird on top")
+    bird = this.physics.add.sprite(0, 0, 'bird');
+    this.bird.play("bird_anim");
+    game.physics.arcade.enable(bird);
+    bird.body.velocity.y = -200;
+    bird.checkWorldBounds = true;
+    bird.outOfBoundsKill = true;
+  }
+
+
+}
+
+
+
 }
