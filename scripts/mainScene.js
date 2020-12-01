@@ -23,6 +23,12 @@ class mainScene extends Phaser.Scene {
     });
   }
   create() {
+    this.counter = 160;
+    this.deltaTimer = 0;
+
+    this.startTime = this.getTime();
+    this.input.on('pointerdown',this.showDelta.bind(this));
+
     console.log(this.scene.get(`startScreen`).keyPressed);
     // Sets the background image to one of Cincinnati
     switch(this.scene.get(`startScreen`).keyPressed){
@@ -180,6 +186,14 @@ class mainScene extends Phaser.Scene {
       // Display the updated score on the screen
       this.scoreText.setText('score: ' + this.score);
     }
+    //this.timer();
+    let elapsedTimer = this.showDelta();
+    this.deltaTimer+=elapsedTimer;
+    if(this.deltaTimer>1000){
+      this.timer();
+      this.deltaTimer = 0;
+    }
+    //console.log(this.deltaTimer);
   } //End of update
 
   // Randomizes the location of the house and resets the package spawn point
@@ -270,14 +284,16 @@ class mainScene extends Phaser.Scene {
   }
   
   async timer(){
-    var sec = 30;
-    var timer = setInterval(function(){
-        document.getElementById('TimerDisplay').innerHTML='00:'+sec;
-        sec--;
-        if (sec < 0) {
-            clearInterval(timer);
-        }
-    }, 1000);
+    //await new Promise(r => setTimeout(r, 1000));
+    //setInterval( function() {
+    this.counter--;
+
+    if (this.counter >= 0) {
+        let countID = document.getElementById('count');
+        console.log(document.getElementById('count'));
+        countID.innerHTML = this.counter;
+    }
+  //}, 1000)
 }
   
   async setDownTimer(){
@@ -290,4 +306,26 @@ class mainScene extends Phaser.Scene {
     this.holdInput = false;
     //console.log(this.holdInput);
   }
+
+
+  getTime() {
+    //make a new date object
+    let d = new Date();
+
+    //return the number of milliseconds since 1 January 1970 00:00:00.
+    return d.getTime();
+}
+showDelta() {
+    //subtract the start time from the time now
+    // 
+    let elapsed = this.getTime()-this.startTime;
+
+    //log the result
+    //console.log("start time=" + this.startTime);
+    //console.log("delta time=" + elapsed);
+
+    //reset the start time
+    this.startTime = this.getTime();
+    return elapsed;
+}
 }
