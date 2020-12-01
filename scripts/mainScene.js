@@ -28,6 +28,8 @@ class mainScene extends Phaser.Scene {
     this.gameOver = false;
 
     this.startTime = this.getTime();
+    
+    this.physics.add.overlap(this.player, this.obstacles, this.hurt, null, this);
 
     let instructionID = document.getElementById('instructions');
     instructionID.innerHTML = "Move using the arrow keys. Pick up/Drop off packages with Space bar!";
