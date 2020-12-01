@@ -32,8 +32,8 @@ class mainScene extends Phaser.Scene {
     this.deltaTimer = 0;
     this.gameOver = false;
 
-    this.startTime = this.getTime(); 
-
+    this.startTime = this.getTime();
+    
     let instructionID = document.getElementById('instructions');
     instructionID.innerHTML = "Move using the arrow keys. Pick up/Drop off packages with Space bar!";
     let instructionID2 = document.getElementById('instructions2');
@@ -359,7 +359,7 @@ spawnBird(){
   // spawn across the top
   if(direction == 1){
     console.log("spawned bird on top")
-    bird = this.physics.add.sprite(0, 0, 'bird');
+    this.bird = this.physics.add.sprite(Phaser.Math.Between(0, 1100), 600, 'bird');
     this.bird.play("bird_anim");
     game.physics.arcade.enable(bird);
     bird.body.velocity.y = -200;
