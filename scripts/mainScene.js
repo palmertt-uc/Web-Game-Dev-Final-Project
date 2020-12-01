@@ -7,6 +7,7 @@ class mainScene extends Phaser.Scene {
     // This method is called once at the beginning
     // It will load all the assets, like sprites and sounds  
     // Parameters: name of the sprite, path of the image
+    
     this.load.image('package', 'assets/sprites/package.png');
     this.load.image('cincinnati', 'assets/images/Cincinnati.png');
     this.load.image('chicago', 'assets/images/Chicago.PNG');
@@ -129,6 +130,10 @@ class mainScene extends Phaser.Scene {
     this.holdInput = false;
     this.transitionTime = 200;
   }
+  
+  hurt(player, obstacle) {
+		this.score-=5;
+		}
 
   update() {
     let speed = 3*this.scaleMult;
