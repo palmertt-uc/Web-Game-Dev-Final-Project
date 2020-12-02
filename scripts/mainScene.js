@@ -256,8 +256,10 @@ hurt(player) {
       }else{
         this.player.x += this.shovex;
         this.player.y += this.shovey;
+        if(this.holding){
         this.package.x += this.shovex;
         this.package.y += this.shovey;
+        }
       }
     }else{
       this.shovex = 0;
