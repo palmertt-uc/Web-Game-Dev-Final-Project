@@ -22,9 +22,9 @@ class mainScene extends Phaser.Scene {
       frameHeight: 32
     });
 
-    this.load.spritesheet("bird", "assets/sprites/BirdSprite.png", {
-      frameWidth: 32,
-      frameHeight: 32
+    this.load.spritesheet("bird", "assets/sprites/bird.png", {
+      frameWidth: 16,
+      frameHeight: 32,
     });
   }
   create() {
@@ -133,7 +133,7 @@ class mainScene extends Phaser.Scene {
     this.anims.create({
       key: "bird_anim",
       frames: this.anims.generateFrameNumbers("bird"),
-      frameRate: 20,
+      frameRate: 10,
       repeat: -1
     });
 
@@ -148,6 +148,7 @@ class mainScene extends Phaser.Scene {
 
     // Bird logic
     this.bird = this.physics.add.sprite(0, Phaser.Math.Between(0, 600), 'bird');
+    this.bird.setScale(3);
     this.bird.play("bird_anim");
   }
 
