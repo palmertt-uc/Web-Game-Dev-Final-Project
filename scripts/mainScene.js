@@ -7,8 +7,8 @@ class mainScene extends Phaser.Scene {
     // This method is called once at the beginning
     // It will load all the assets, like sprites and sounds  
     // Parameters: name of the sprite, path of the image
-    this.load.image('package', 'assets/sprites/package.png');
-    this.load.image('cincinnati', 'assets/images/Cincinnati.png');
+    this.load.image('package', 'assets/sprites/Package.png');
+    this.load.image('cincinnati', 'assets/images/Cincinnati.PNG');
     this.load.image('chicago', 'assets/images/Chicago.PNG');
     this.load.image('houston', 'assets/images/Houston.PNG');
     this.load.image('losangeles', 'assets/images/LosAngeles.PNG');
@@ -76,22 +76,22 @@ class mainScene extends Phaser.Scene {
         let weather = data['weather'][0]['main']
 
         if (weather == 'Clouds') {
-          document.getElementById("weatherImage").setAttribute('src', '/assets/images/cloudy.png');
+          document.getElementById("weatherImage").setAttribute('src', 'assets/images/cloudy.png');
           document.getElementById("weatherText").innerHTML = "It is currently cloudy"
         } else if (weather == 'Thunderstorm') {
-          document.getElementById("weatherImage").setAttribute('src', '/assets/images/thunder.png');
+          document.getElementById("weatherImage").setAttribute('src', 'assets/images/thunder.png');
           document.getElementById("weatherText").innerHTML = "It is currently thundering"
         } else if (weather == 'Drizzle') {
-          document.getElementById("weatherImage").setAttribute('src', '/assets/images/rain.png');
+          document.getElementById("weatherImage").setAttribute('src', 'assets/images/rain.png');
           document.getElementById("weatherText").innerHTML = "It is currently raining"
         } else if (weather == 'Rain') {
-          document.getElementById("weatherImage").setAttribute('src', '/assets/images/rain.png');
+          document.getElementById("weatherImage").setAttribute('src', 'assets/images/rain.png');
           document.getElementById("weatherText").innerHTML = "It is currently raining"
         } else if (weather == 'Snow') {
-          document.getElementById("weatherImage").setAttribute('src', '/assets/images/snow.png');
+          document.getElementById("weatherImage").setAttribute('src', 'assets/images/snow.png');
           document.getElementById("weatherText").innerHTML = "It is currently snowing"
         } else if (weather == 'Clear') {
-          document.getElementById("weatherImage").setAttribute('src', '/assets/images/sunny.png');
+          document.getElementById("weatherImage").setAttribute('src', 'assets/images/sunny.png');
           document.getElementById("weatherText").innerHTML = "It is a clear day"
         } else {
           return "Not Available"
