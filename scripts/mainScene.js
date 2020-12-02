@@ -41,6 +41,8 @@ class mainScene extends Phaser.Scene {
     instructionID.innerHTML = "Move using the arrow keys. Pick up/Drop off packages with Space bar!";
     let instructionID2 = document.getElementById('instructions2');
     instructionID2.innerHTML = "Deliver as many packages as you can before time runs out!";
+    let countID = document.getElementById('count');
+    countID.innerHTML = "Delivery Timer: " ;
     // Sets the background image to one of Cincinnati
     switch (this.scene.get(`startScreen`).keyPressed) {
       case 1:
@@ -377,7 +379,6 @@ hurt(player) {
     //setInterval( function() {
     if (this.counter >= 0) {
       let countID = document.getElementById('count');
-      //console.log(document.getElementById('count'));
       countID.innerHTML = "Delivery Timer: " + this.counter;
       this.gameOver = true;
     } else if (this.gameOver) {
