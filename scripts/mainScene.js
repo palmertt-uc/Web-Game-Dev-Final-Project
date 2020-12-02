@@ -34,6 +34,8 @@ class mainScene extends Phaser.Scene {
 
     this.startTime = this.getTime();
     this.hurtTimer = 0;
+    this.shovex = 0;
+    this.shovey = 0;
 
     let instructionID = document.getElementById('instructions');
     instructionID.innerHTML = "Move using the arrow keys. Pick up/Drop off packages with Space bar!";
@@ -157,31 +159,8 @@ class mainScene extends Phaser.Scene {
   }
 	
 hurt(player) {
-
-  let posNegShovex = Phaser.Math.Between(-1, 1);
-  let posNegShovey = Phaser.Math.Between(-1, 1);
-  
-  if(posNegShovex>0){
-    posNegShovex = 1;
-  }else{
-    posNegShovex = -1;
-  }
-  
-  if(posNegShovey>0){
-    posNegShovey = 1;
-  }else{
-    posNegShovey = -1;
-  }
-
-  let shovex = Phaser.Math.Between(50, 55)*posNegShovex;
-  let shovey = Phaser.Math.Between(50, 55)*posNegShovey;
 	this.score -= 5;
   this.scoreText.setText('score: ' + this.score);
-  this.player.x += shovex;
-  this.player.y += shovey;
-	// this.time.addEvent({
-	// delay: 1000
-  // });
 }
 
   update() {
@@ -206,17 +185,6 @@ hurt(player) {
       this.player.y -= speed;
     }
 
-
-    // document.addEventListener('keydown',(event)=>{
-    //   //console.log(event.key);
-    //   if(event.key ==" "){
-    //     this.descendAscend();
-    //     if (this.physics.overlap(this.player, this.package)) {
-    //       // Call the new hit() method
-    //       this.hit();
-    //     }
-    //   }
-    // })
     if (this.arrow.space.isDown && !this.holdInput) {
       this.holdInput = true;
       //console.log("space");
@@ -265,7 +233,39 @@ hurt(player) {
     if(this.hurtTimer>0){
       this.hurtTimer-=elapsedTimer;
     }
+
+    if(this.hurtTimer>750){
+      if(this.shovex==0 && this.shovey==0){
+        let posNegShovex = Phaser.Math.Between(-1, 1);
+        let posNegShovey = Phaser.Math.Between(-1, 1);
+        
+        if(posNegShovex>0){
+          posNegShovex = 1;
+        }else{
+          posNegShovex = -1;
+        }
+        
+        if(posNegShovey>0){
+          posNegShovey = 1;
+        }else{
+          posNegShovey = -1;
+        }
+      
+        this.shovey = Phaser.Math.Between(6, 9)*posNegShovey;
+        this.shovex = Phaser.Math.Between(6, 9);
+      }else{
+        this.player.x += this.shovex;
+        this.player.y += this.shovey;
+        this.package.x += this.shovex;
+        this.package.y += this.shovey;
+      }
+    }else{
+      this.shovex = 0;
+      this.shovey = 0;
+    }
     console.log(this.hurtTimer);
+
+
   } //End of update
 
   // Bird logic
