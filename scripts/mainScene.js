@@ -33,7 +33,7 @@ class mainScene extends Phaser.Scene {
     this.gameOver = false;
 
     this.startTime = this.getTime();
-	  
+    this.hurtTimer = 0;
 
     let instructionID = document.getElementById('instructions');
     instructionID.innerHTML = "Move using the arrow keys. Pick up/Drop off packages with Space bar!";
@@ -62,7 +62,7 @@ class mainScene extends Phaser.Scene {
       default:
         this.background = this.add.tileSprite(0, 0, 1200, 600, "cincinnati");
         
-        this.physics.add.overlap(this.player, this.bird, this.hurt, null, this);
+        
     }
 
     this.background.setOrigin(0, 0);
@@ -158,10 +158,10 @@ class mainScene extends Phaser.Scene {
 	
 hurt(player) {
 	this.score -= 5;
-	this.scoreText -= 5;
-	this.time.addEvent({
-	delay: 1000
-	});
+	this.scoreText.setText('score: ' + this.score);
+	// this.time.addEvent({
+	// delay: 1000
+  // });
 }
 
   update() {
@@ -207,6 +207,13 @@ hurt(player) {
       }
     }
 
+
+
+    if(this.physics.overlap(this.player, this.bird) && this.hurtTimer<=0){
+      this.hurt();
+      this.hurtTimer = 1000;
+    }
+
     if (this.holdInput) {
       // console.log("running");
       this.inputHoldTimer();
@@ -234,7 +241,11 @@ hurt(player) {
       this.timer();
       this.deltaTimer = 0;
     }
-    //console.log(this.deltaTimer);
+
+    if(this.hurtTimer>0){
+      this.hurtTimer-=elapsedTimer;
+    }
+    console.log(this.hurtTimer);
   } //End of update
 
   // Bird logic
@@ -248,7 +259,7 @@ hurt(player) {
 
   resetBirdPos(bird) {
     bird.x = 0;
-    var randomY = Phaser.Math.Between(0, 600);
+    var randomY = Phaser.Math.Between(0, 500);
     bird.y = randomY;
   }
 
