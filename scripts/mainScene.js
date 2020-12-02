@@ -60,6 +60,8 @@ class mainScene extends Phaser.Scene {
         break;
       default:
         this.background = this.add.tileSprite(0, 0, 1200, 600, "cincinnati");
+        
+        this.physics.add.overlap(this.player, this.bird, this.hurt, null, this);
     }
 
     this.background.setOrigin(0, 0);
@@ -150,6 +152,10 @@ class mainScene extends Phaser.Scene {
     this.bird = this.physics.add.sprite(0, Phaser.Math.Between(0, 600), 'bird');
     this.bird.setScale(3);
     this.bird.play("bird_anim");
+    
+    hurt(player) {
+		    this.score -= 5;
+		}
   }
 
   update() {
