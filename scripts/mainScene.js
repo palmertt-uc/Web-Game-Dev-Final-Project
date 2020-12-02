@@ -157,8 +157,28 @@ class mainScene extends Phaser.Scene {
   }
 	
 hurt(player) {
+
+  let posNegShovex = Phaser.Math.Between(-1, 1);
+  let posNegShovey = Phaser.Math.Between(-1, 1);
+  
+  if(posNegShovex>0){
+    posNegShovex = 1;
+  }else{
+    posNegShovex = -1;
+  }
+  
+  if(posNegShovey>0){
+    posNegShovey = 1;
+  }else{
+    posNegShovey = -1;
+  }
+
+  let shovex = Phaser.Math.Between(50, 55)*posNegShovex;
+  let shovey = Phaser.Math.Between(50, 55)*posNegShovey;
 	this.score -= 5;
-	this.scoreText.setText('score: ' + this.score);
+  this.scoreText.setText('score: ' + this.score);
+  this.player.x += shovex;
+  this.player.y += shovey;
 	// this.time.addEvent({
 	// delay: 1000
   // });
