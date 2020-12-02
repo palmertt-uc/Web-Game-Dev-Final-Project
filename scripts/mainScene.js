@@ -33,6 +33,7 @@ class mainScene extends Phaser.Scene {
     this.gameOver = false;
 
     this.startTime = this.getTime();
+	  
 
     let instructionID = document.getElementById('instructions');
     instructionID.innerHTML = "Move using the arrow keys. Pick up/Drop off packages with Space bar!";
@@ -153,10 +154,15 @@ class mainScene extends Phaser.Scene {
     this.bird.setScale(3);
     this.bird.play("bird_anim");
     
-    hurt(player) {
-		    this.score -= 5;
-		}
   }
+	
+hurt(player) {
+	this.score -= 5;
+	this.scoreText -= 5;
+	this.time.addEvent({
+	delay: 1000
+	});
+}
 
   update() {
     this.moveBird(this.bird, 3)
