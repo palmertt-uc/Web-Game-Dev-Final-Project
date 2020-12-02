@@ -1,6 +1,6 @@
 class mainScene extends Phaser.Scene {
   // The 3 methods
-  constructor(){
+  constructor() {
     super("runGame");
   }
   preload() {
@@ -17,14 +17,14 @@ class mainScene extends Phaser.Scene {
     this.load.image('house', 'assets/sprites/House.png');
     this.load.image('warehouse', 'assets/sprites/Warehouse.png');
 
-    this.load.spritesheet("drone","assets/sprites/DroneAnimated.png",{
-      frameWidth:32,
-      frameHeight:32
+    this.load.spritesheet("drone", "assets/sprites/DroneAnimated.png", {
+      frameWidth: 32,
+      frameHeight: 32
     });
 
-    this.load.spritesheet("bird","assets/sprites/BirdSprite.png",{
-      frameWidth:32,
-      frameHeight:32
+    this.load.spritesheet("bird", "assets/sprites/BirdSprite.png", {
+      frameWidth: 32,
+      frameHeight: 32
     });
   }
   create() {
@@ -33,13 +33,13 @@ class mainScene extends Phaser.Scene {
     this.gameOver = false;
 
     this.startTime = this.getTime();
-    
+
     let instructionID = document.getElementById('instructions');
     instructionID.innerHTML = "Move using the arrow keys. Pick up/Drop off packages with Space bar!";
     let instructionID2 = document.getElementById('instructions2');
     instructionID2.innerHTML = "Deliver as many packages as you can before time runs out!";
     // Sets the background image to one of Cincinnati
-    switch(this.scene.get(`startScreen`).keyPressed){
+    switch (this.scene.get(`startScreen`).keyPressed) {
       case 1:
         this.background = this.add.tileSprite(0, 0, 1200, 600, "cincinnati");
         break;
@@ -65,35 +65,35 @@ class mainScene extends Phaser.Scene {
     this.background.setOrigin(0, 0);
     // Gets the weather type
     fetch('https://api.openweathermap.org/data/2.5/weather?q=Cincinnati&appid=86b3ece53e58debf043613f6fc7f7cca')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            let weather = data['weather'][0]['main']
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        let weather = data['weather'][0]['main']
 
-            if (weather == 'Clouds') {
-              document.getElementById("weatherImage").setAttribute('src', '/assets/images/cloudy.png' );
-              document.getElementById("weatherText").innerHTML = "It is currently cloudy"
-          } else if (weather == 'Thunderstorm') {
-              document.getElementById("weatherImage").setAttribute('src', '/assets/images/thunder.png' );
-              document.getElementById("weatherText").innerHTML = "It is currently thundering"
-          } else if (weather == 'Drizzle') {
-              document.getElementById("weatherImage").setAttribute('src', '/assets/images/rain.png' );
-              document.getElementById("weatherText").innerHTML = "It is currently raining"
-          } else if (weather == 'Rain') {
-              document.getElementById("weatherImage").setAttribute('src', '/assets/images/rain.png' );
-              document.getElementById("weatherText").innerHTML = "It is currently raining"
-          } else if (weather == 'Snow') {
-              document.getElementById("weatherImage").setAttribute('src', '/assets/images/snow.png' );
-              document.getElementById("weatherText").innerHTML = "It is currently snowing"
-          } else if (weather == 'Clear') {
-              document.getElementById("weatherImage").setAttribute('src', '/assets/images/sunny.png' );
-              document.getElementById("weatherText").innerHTML = "It is a clear day"
-          } else {
-              return "Not Available"
-          }
+        if (weather == 'Clouds') {
+          document.getElementById("weatherImage").setAttribute('src', '/assets/images/cloudy.png');
+          document.getElementById("weatherText").innerHTML = "It is currently cloudy"
+        } else if (weather == 'Thunderstorm') {
+          document.getElementById("weatherImage").setAttribute('src', '/assets/images/thunder.png');
+          document.getElementById("weatherText").innerHTML = "It is currently thundering"
+        } else if (weather == 'Drizzle') {
+          document.getElementById("weatherImage").setAttribute('src', '/assets/images/rain.png');
+          document.getElementById("weatherText").innerHTML = "It is currently raining"
+        } else if (weather == 'Rain') {
+          document.getElementById("weatherImage").setAttribute('src', '/assets/images/rain.png');
+          document.getElementById("weatherText").innerHTML = "It is currently raining"
+        } else if (weather == 'Snow') {
+          document.getElementById("weatherImage").setAttribute('src', '/assets/images/snow.png');
+          document.getElementById("weatherText").innerHTML = "It is currently snowing"
+        } else if (weather == 'Clear') {
+          document.getElementById("weatherImage").setAttribute('src', '/assets/images/sunny.png');
+          document.getElementById("weatherText").innerHTML = "It is a clear day"
+        } else {
+          return "Not Available"
+        }
       })
 
-        .catch(err => alert("Open Weather API Not Working"))
+      .catch(err => alert("Open Weather API Not Working"))
 
     // Spawns the warehouse and house initial location
     this.warehouse = this.physics.add.sprite(400, 500, "warehouse");
@@ -111,10 +111,13 @@ class mainScene extends Phaser.Scene {
     this.scaleMult = 2;
     // The style of the text 
     // A lot of options are available, these are the most important ones
-    let style = { font: '30px Arial', fill: 'black' };
+    let style = {
+      font: '30px Arial',
+      fill: 'black'
+    };
 
-     // bird spawn timer
-     setInterval(this.spawnBird,500)
+    // bird spawn timer
+    setInterval(this.spawnBird, 500)
 
     // Display the score in the top left corner
     // Parameters: x position, y position, text, style
@@ -134,7 +137,7 @@ class mainScene extends Phaser.Scene {
       repeat: -1
     });
 
-    this.player = this.physics.add.sprite(350,100,"drone");
+    this.player = this.physics.add.sprite(350, 100, "drone");
     this.player.play("drone_anim");
     this.player.setScale(this.scaleMult);
     this.player.setCollideWorldBounds(true);
@@ -142,27 +145,33 @@ class mainScene extends Phaser.Scene {
     this.setDown = false;
     this.holdInput = false;
     this.transitionTime = 200;
+
+    // Bird logic
+    this.bird = this.physics.add.sprite(0, Phaser.Math.Between(0, 600), 'bird');
+    this.bird.play("bird_anim");
   }
 
   update() {
-    let speed = 3*this.scaleMult;
+    this.moveBird(this.bird, 3)
+
+    let speed = 3 * this.scaleMult;
     // This method is called 60 times per second after create() 
     // It will handle all the game's logic, like movements
     // Handle horizontal movements
     if (this.arrow.right.isDown) {
       // If the right arrow is pressed, move to the right
       this.player.x += speed;
-  } else if (this.arrow.left.isDown) {
+    } else if (this.arrow.left.isDown) {
       // If the left arrow is pressed, move to the left
       this.player.x -= speed;
-  } 
+    }
 
     // Do the same for vertical movements
     if (this.arrow.down.isDown) {
       this.player.y += speed;
     } else if (this.arrow.up.isDown) {
       this.player.y -= speed;
-    } 
+    }
 
 
     // document.addEventListener('keydown',(event)=>{
@@ -175,7 +184,7 @@ class mainScene extends Phaser.Scene {
     //     }
     //   }
     // })
-    if(this.arrow.space.isDown && !this.holdInput){
+    if (this.arrow.space.isDown && !this.holdInput) {
       this.holdInput = true;
       //console.log("space");
       this.descendAscend();
@@ -185,16 +194,16 @@ class mainScene extends Phaser.Scene {
       }
     }
 
-    if(this.holdInput){
+    if (this.holdInput) {
       // console.log("running");
       this.inputHoldTimer();
     }
-    if(this.setDown){
+    if (this.setDown) {
       // console.log("running");
       this.setDownTimer();
     }
 
-    if(this.holding){
+    if (this.holding) {
       this.movePackage(speed);
     }
     //console.log(this.holding);
@@ -207,42 +216,57 @@ class mainScene extends Phaser.Scene {
     }
     //this.timer();
     let elapsedTimer = this.showDelta();
-    this.deltaTimer+=elapsedTimer;
-    if(this.deltaTimer>1000){
+    this.deltaTimer += elapsedTimer;
+    if (this.deltaTimer > 1000) {
       this.timer();
       this.deltaTimer = 0;
     }
     //console.log(this.deltaTimer);
   } //End of update
 
+  // Bird logic
+  moveBird(bird, speed) {
+    bird.x += speed;
+
+    if (bird.x > 1100) {
+      this.resetBirdPos(bird)
+    }
+  }
+
+  resetBirdPos(bird) {
+    bird.x = 0;
+    var randomY = Phaser.Math.Between(0, 600);
+    bird.y = randomY;
+  }
+
   // Randomizes the location of the house and resets the package spawn point
   randomizeLocations() {
     this.time.addEvent({
       delay: 200,
-      callback: ()=>{
+      callback: () => {
         this.house.x = Phaser.Math.Between(100, 1000);
-        this.house.y = Phaser.Math.Between(100, 500);      
+        this.house.y = Phaser.Math.Between(100, 500);
       },
       loop: false
-  })
+    })
     this.package.x = 405;
     this.package.y = 500;
   }
 
   async hit() {
-    
-    if(this.holding){
+
+    if (this.holding) {
       this.holding = false;
       this.setDown = true;
       this.descendAscend();
       this.putDownPackage();
-    }else if(!this.holding && !this.setDown){
+    } else if (!this.holding && !this.setDown) {
       this.descendAscend();
       await new Promise(r => setTimeout(r, this.transitionTime));
       this.pickUpPackage();
     }
   }
-  async descendAscend(){
+  async descendAscend() {
     this.tweens.add({
       targets: this.player, // on the player 
       duration: this.transitionTime, // for 200ms 
@@ -259,28 +283,28 @@ class mainScene extends Phaser.Scene {
       yoyo: false, // Turned off because it was not working
     });
   }
-  
 
-  movePackage(speed){
+
+  movePackage(speed) {
     if (this.arrow.right.isDown) {
       // If the right arrow is pressed, move to the right
       this.package.x += speed;
-  } else if (this.arrow.left.isDown) {
+    } else if (this.arrow.left.isDown) {
       // If the left arrow is pressed, move to the left
       this.package.x -= speed;
-  } 
+    }
 
     // Do the same for vertical movements
     if (this.arrow.down.isDown) {
       this.package.y += speed;
     } else if (this.arrow.up.isDown) {
       this.package.y -= speed;
-    } 
+    }
     // this.package.x = Phaser.Math.Between(100, 1300);
     // this.package.y = Phaser.Math.Between(100, 500);
   }
-  
-  pickUpPackage(){
+
+  pickUpPackage() {
     this.holding = true;
     this.tweens.add({
       targets: this.package, // on the player 
@@ -291,7 +315,7 @@ class mainScene extends Phaser.Scene {
     });
   }
 
-  putDownPackage(){
+  putDownPackage() {
     this.holding = false;
     this.tweens.add({
       targets: this.package, // on the player 
@@ -301,29 +325,29 @@ class mainScene extends Phaser.Scene {
       yoyo: false, // Unsure if I need to define this here or not. Too lazy to check. 
     });
   }
-  
-  async timer(){
+
+  async timer() {
     //await new Promise(r => setTimeout(r, 1000));
     //setInterval( function() {
     if (this.counter >= 0) {
-        let countID = document.getElementById('count');
-        //console.log(document.getElementById('count'));
-        countID.innerHTML = "Delivery Timer: " + this.counter;
-        this.gameOver = true;
-    } else if(this.gameOver){
+      let countID = document.getElementById('count');
+      //console.log(document.getElementById('count'));
+      countID.innerHTML = "Delivery Timer: " + this.counter;
+      this.gameOver = true;
+    } else if (this.gameOver) {
       alert("Game Over! Final Score: " + this.score);
       this.gameOver = false;
       window.location.reload();
     }
     this.counter--;
-  //}, 1000)
-}
-  
-  async setDownTimer(){
+    //}, 1000)
+  }
+
+  async setDownTimer() {
     await new Promise(r => setTimeout(r, 1000));
     this.setDown = false;
   }
-  async inputHoldTimer(){
+  async inputHoldTimer() {
     //console.log(this.holdInput);
     await new Promise(r => setTimeout(r, 1000));
     this.holdInput = false;
@@ -337,11 +361,11 @@ class mainScene extends Phaser.Scene {
 
     //return the number of milliseconds since 1 January 1970 00:00:00.
     return d.getTime();
-}
-showDelta() {
+  }
+  showDelta() {
     //subtract the start time from the time now
     // 
-    let elapsed = this.getTime()-this.startTime;
+    let elapsed = this.getTime() - this.startTime;
 
     //log the result
     //console.log("start time=" + this.startTime);
@@ -350,26 +374,5 @@ showDelta() {
     //reset the start time
     this.startTime = this.getTime();
     return elapsed;
-}
-
-spawnBird(){
-
-  // pick an edge to spawn on 1 is top, 2 is right etc
-  var direction =  Phaser.Math.Between(1, 4);
-  // spawn across the top
-  if(direction == 1){
-    console.log("spawned bird on top")
-    this.bird = this.physics.add.sprite(Phaser.Math.Between(0, 1100), 600, 'bird');
-    this.bird.play("bird_anim");
-    game.physics.arcade.enable(bird);
-    bird.body.velocity.y = -200;
-    bird.checkWorldBounds = true;
-    bird.outOfBoundsKill = true;
   }
-
-
-}
-
-
-
 }
